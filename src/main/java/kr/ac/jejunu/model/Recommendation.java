@@ -1,10 +1,16 @@
 package kr.ac.jejunu.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 /**
  * Created by neo-202 on 2016-06-08.
  */
+@Entity
 public class Recommendation {
 
+    @Id
+    private int id;
     private int article_id;
     private String user_id;
     private boolean type;

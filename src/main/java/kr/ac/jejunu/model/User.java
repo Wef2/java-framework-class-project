@@ -1,10 +1,15 @@
 package kr.ac.jejunu.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 /**
  * Created by neo-202 on 2016-06-08.
  */
+@Entity
 public class User {
 
+    @Id
     private String id;
     private String password;
     private String name;
