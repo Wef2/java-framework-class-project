@@ -7,6 +7,7 @@ import kr.ac.jejunu.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -28,16 +29,28 @@ public class FormController {
     @Autowired
     ArticleRepository articleRepository;
 
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public String getUser(@ModelAttribute User user, Model model){
+        User newUser = userRepository.findByIdAndPassword(user.getId(), user.getPassword());
+        try{
+            model.addAttribute("id", newUser.getId());
+            return "redirect:board";
+        }
+        catch(NullPointerException e){
+            return "login";
+        }
+    }
+
     @RequestMapping(value = "/user", method = RequestMethod.POST)
     public String saveUser(@ModelAttribute User user) {
         userRepository.save(user);
         logger.info(userRepository.findAll().toString());
-        return "redirect:board";
+        return "board";
     }
 
     @RequestMapping(value = "/article", method = RequestMethod.POST)
     public String saveArticle(@ModelAttribute Article article){
         articleRepository.save(article);
-        return "redirect:board";
+        return "board";
     }
 }

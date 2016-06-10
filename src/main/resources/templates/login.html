@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <link rel="stylesheet" type="text/css" href="webjars/bootstrap/3.3.6/css/bootstrap.min.css"/>
     <link th:href="@{css/style.css}" rel="stylesheet"/>
@@ -10,24 +10,24 @@
 <h1 class="text-center">로그인</h1>
 <div class="container login-container">
 
-        <form class="form-signin">
-            <div class="input-container">
-                <label for="input-id">ID</label>
-                <input type="text" id="input-id" class="form-control" placeholder="ID"/>
+    <form method="post" action="#" th:action="@{/login}" th:object="${user}">
+        <div class="input-container">
+            <label for="id">ID</label>
+            <input type="text" id="id" class="form-control" placeholder="ID" th:field="*{id}"/>
+        </div>
+        <div class="input-container">
+            <label for="password">Password</label>
+            <input type="password" id="password" class="form-control" placeholder="Password" th:field="*{password}"/>
+        </div>
+        <div class="button-container">
+            <div class="col-md-6">
+                <button class="btn btn-lg btn-primary btn-block" type="submit">로그인</button>
             </div>
-            <div class="input-container">
-                <label for="input-password">Password</label>
-                <input type="password" id="input-password" class="form-control" placeholder="Password"/>
+            <div class="col-md-6">
+                <button class="btn btn-lg btn-danger btn-block" type="submit">취소</button>
             </div>
-            <div class="button-container">
-                <div class="col-md-6">
-                    <button class="btn btn-lg btn-primary btn-block" type="submit">로그인</button>
-                </div>
-                <div class="col-md-6">
-                    <button class="btn btn-lg btn-danger btn-block" type="submit">취소</button>
-                </div>
-            </div>
-        </form>
+        </div>
+    </form>
 
 </div>
 </body>

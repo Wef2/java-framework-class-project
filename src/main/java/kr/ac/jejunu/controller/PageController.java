@@ -4,36 +4,40 @@ import kr.ac.jejunu.model.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 /**
  * Created by neo-202 on 2016-06-07.
  */
 
 @Controller
+@SessionAttributes("id")
 public class PageController {
 
     @RequestMapping("/")
-    public String home(){
+    public String home() {
         return "board";
     }
 
     @RequestMapping("/login")
-    public String login(){
+    public String login(Model model) {
+        model.addAttribute("user", new User());
         return "login";
     }
 
     @RequestMapping("/board")
-    public String board(){
+    public String board() {
         return "board";
     }
 
     @RequestMapping("/modification")
-    public String modification(){
+    public String modification(Model model) {
+        model.addAttribute("user", new User());
         return "modification";
     }
 
     @RequestMapping("/registration")
-    public String registration(Model model){
+    public String registration(Model model) {
         model.addAttribute("user", new User());
         return "registration";
     }
