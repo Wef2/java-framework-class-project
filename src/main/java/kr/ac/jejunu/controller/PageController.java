@@ -1,6 +1,8 @@
 package kr.ac.jejunu.controller;
 
+import kr.ac.jejunu.model.User;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -31,7 +33,8 @@ public class PageController {
     }
 
     @RequestMapping("/registration")
-    public String registration(){
+    public String registration(Model model){
+        model.addAttribute("user", new User());
         return "registration";
     }
 
