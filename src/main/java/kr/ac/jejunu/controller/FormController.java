@@ -10,15 +10,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * Created by neo-202 on 2016-06-08.
  */
 @Controller
+@SessionAttributes("user")
 public class FormController {
 
     private final static Logger logger = LoggerFactory.getLogger(FormController.class);
@@ -30,11 +30,11 @@ public class FormController {
     ArticleRepository articleRepository;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String getUser(@ModelAttribute User user, Model model){
+    public String getUser(@ModelAttribute User user, HttpSession httpSession){
         User newUser = userRepository.findByIdAndPassword(user.getId(), user.getPassword());
         try{
-            model.addAttribute("id", newUser.getId());
-            return "redirect:board";
+            httpSession.setAttribute("user", newUser);
+            return "redirect:/";
         }
         catch(NullPointerException e){
             return "login";
@@ -45,12 +45,12 @@ public class FormController {
     public String saveUser(@ModelAttribute User user) {
         userRepository.save(user);
         logger.info(userRepository.findAll().toString());
-        return "board";
+        return "/";
     }
 
     @RequestMapping(value = "/article", method = RequestMethod.POST)
     public String saveArticle(@ModelAttribute Article article){
         articleRepository.save(article);
-        return "board";
+        return "/";
     }
 }

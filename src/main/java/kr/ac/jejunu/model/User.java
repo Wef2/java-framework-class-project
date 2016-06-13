@@ -13,6 +13,13 @@ public class User {
 
     }
 
+    public User(String id, String password, String name, String description) {
+        this.id = id;
+        this.password = password;
+        this.name = name;
+        this.description = description;
+    }
+
     @Id
     private String id;
     private String password;
@@ -49,5 +56,15 @@ public class User {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                '}';
     }
 }

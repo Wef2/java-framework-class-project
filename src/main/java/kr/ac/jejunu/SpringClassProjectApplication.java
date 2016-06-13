@@ -16,6 +16,10 @@ public class SpringClassProjectApplication {
 
 	@Bean
 	public CommandLineRunner demo(UserRepository userRepository) {
+		for(int i = 1; i <= 10; i++){
+			userRepository.save(new User("test" + i, "test123", "테스트" + i, "테스트입니다" + i));
+		}
+
 		return (args) -> {
 			log.info("Users found with findAll():");
 			log.info("-------------------------------");
