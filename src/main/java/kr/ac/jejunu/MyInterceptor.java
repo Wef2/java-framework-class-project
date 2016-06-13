@@ -18,7 +18,13 @@ public class MyInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         logger.info(request.getRequestURI());
-        if(request.getRequestURI() == "/"){
+        try{
+            logger.info(request.getSession().getAttribute("user").toString());
+        }
+        catch (Exception e){
+
+        }
+        if (request.getRequestURI() == "/") {
 
         }
         return true;

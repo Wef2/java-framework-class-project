@@ -7,10 +7,11 @@ import kr.ac.jejunu.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.servlet.http.HttpSession;
 
@@ -30,16 +31,17 @@ public class FormController {
     ArticleRepository articleRepository;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String getUser(@ModelAttribute User user, HttpSession httpSession){
-        User newUser = userRepository.findByIdAndPassword(user.getId(), user.getPassword());
-        try{
+    public String getUser(@ModelAttribute User user, HttpSession httpSession) {
+        try {
+            User newUser = userRepository.findByIdAndPassword(user.getId(), user.getPassword());
+            logger.info(newUser.toString());
             httpSession.setAttribute("user", newUser);
             return "redirect:/";
-        }
-        catch(NullPointerException e){
+        } catch (NullPointerException e) {
             return "login";
         }
     }
+
 
     @RequestMapping(value = "/user", method = RequestMethod.POST)
     public String saveUser(@ModelAttribute User user) {
@@ -49,7 +51,7 @@ public class FormController {
     }
 
     @RequestMapping(value = "/article", method = RequestMethod.POST)
-    public String saveArticle(@ModelAttribute Article article){
+    public String saveArticle(@ModelAttribute Article article) {
         articleRepository.save(article);
         return "/";
     }

@@ -22,7 +22,11 @@ public class PageController {
     private final static Logger logger = LoggerFactory.getLogger(PageController.class);
 
     @RequestMapping("/")
-    public String home() {
+    public String home(Model model, HttpSession httpSession)
+    {
+        User user = new User();
+        user = (User) httpSession.getAttribute("user");
+        model.addAttribute("user", user);
         return "board";
     }
 
