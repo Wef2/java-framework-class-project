@@ -22,7 +22,7 @@ public class MyRestController {
     }
 
     @RequestMapping(value = "/user/{id}")
-    User user(@PathVariable int id){
+    User user(@PathVariable String id){
         return userRepository.findOne(id);
     }
 

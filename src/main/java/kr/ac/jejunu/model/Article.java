@@ -19,6 +19,16 @@ public class Article {
     private String content;
     private Date date;
 
+    public Article(){
+
+    }
+
+    public Article(String user_id, String content, Date date) {
+        this.user_id = user_id;
+        this.content = content;
+        this.date = date;
+    }
+
     public int getId() {
         return id;
     }
@@ -50,4 +60,15 @@ public class Article {
     public void setDate(Date date) {
         this.date = date;
     }
+
+    @Override
+    public String toString() {
+        return "Article{" +
+                "date=" + date +
+                ", content='" + content + '\'' +
+                ", user_id='" + user_id + '\'' +
+                ", id=" + id +
+                '}';
+    }
+
 }

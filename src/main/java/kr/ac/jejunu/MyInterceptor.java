@@ -19,7 +19,7 @@ public class MyInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         logger.info(request.getRequestURI());
         try{
-            logger.info(request.getSession().getAttribute("user").toString());
+            logger.info("USER ID : " + request.getSession().getAttribute("userId").toString());
         }
         catch (Exception e){
 

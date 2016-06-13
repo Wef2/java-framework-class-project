@@ -19,7 +19,7 @@ import javax.servlet.http.HttpSession;
  * Created by neo-202 on 2016-06-08.
  */
 @Controller
-@SessionAttributes("user")
+@SessionAttributes("userId")
 public class FormController {
 
     private final static Logger logger = LoggerFactory.getLogger(FormController.class);
@@ -34,14 +34,12 @@ public class FormController {
     public String getUser(@ModelAttribute User user, HttpSession httpSession) {
         try {
             User newUser = userRepository.findByIdAndPassword(user.getId(), user.getPassword());
-            logger.info(newUser.toString());
-            httpSession.setAttribute("user", newUser);
+            httpSession.setAttribute("userId", newUser.getId());
             return "redirect:/";
         } catch (NullPointerException e) {
             return "login";
         }
     }
-
 
     @RequestMapping(value = "/user", method = RequestMethod.POST)
     public String saveUser(@ModelAttribute User user) {
