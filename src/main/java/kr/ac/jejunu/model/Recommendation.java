@@ -14,41 +14,49 @@ public class Recommendation {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    private int article_id;
-    private String user_id;
-    private boolean type;
+    private int articleId;
+    private String userId;
+    private boolean value;
 
-    public int getArticle_id() {
-        return article_id;
+    public int getId() {
+        return id;
     }
 
-    public void setArticle_id(int article_id) {
-        this.article_id = article_id;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getUser_id() {
-        return user_id;
+    public int getArticleId() {
+        return articleId;
     }
 
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
+    public void setArticleId(int articleId) {
+        this.articleId = articleId;
     }
 
-    public boolean getType() {
-        return type;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setType(boolean type) {
-        this.type = type;
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public boolean isValue() {
+        return value;
+    }
+
+    public void setValue(boolean value) {
+        this.value = value;
     }
 
     @Override
     public String toString() {
         return "Recommendation{" +
                 "id=" + id +
-                ", article_id=" + article_id +
-                ", user_id='" + user_id + '\'' +
-                ", type=" + type +
+                ", articleId=" + articleId +
+                ", userId='" + userId + '\'' +
+                ", value=" + value +
                 '}';
     }
 }

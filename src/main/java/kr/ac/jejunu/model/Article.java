@@ -15,7 +15,7 @@ public class Article {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    private String user_id;
+    private String userId;
     private String content;
     private Date date;
 
@@ -23,8 +23,8 @@ public class Article {
 
     }
 
-    public Article(String user_id, String content, Date date) {
-        this.user_id = user_id;
+    public Article(String userId, String content, Date date) {
+        this.userId = userId;
         this.content = content;
         this.date = date;
     }
@@ -37,12 +37,12 @@ public class Article {
         this.id = id;
     }
 
-    public String getUser_id() {
-        return user_id;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getContent() {
@@ -65,7 +65,7 @@ public class Article {
     public String toString() {
         return "Article{" +
                 "id=" + id +
-                ", user_id='" + user_id + '\'' +
+                ", userId='" + userId + '\'' +
                 ", content='" + content + '\'' +
                 ", date=" + date +
                 '}';

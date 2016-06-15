@@ -82,24 +82,31 @@ public class FormController {
 
     @RequestMapping(value = "/article", method = RequestMethod.POST)
     public String saveArticle(@ModelAttribute Article article, HttpSession httpSession) {
-        article.setUser_id((String)httpSession.getAttribute("userId"));
+        article.setUserId((String)httpSession.getAttribute("userId"));
         article.setDate(new Date());
         articleRepository.save(article);
         return "redirect:/";
     }
 
     @RequestMapping(value = "/recommendation", method = RequestMethod.POST)
-    public ResponseEntity<Recommendation> recommendation(@RequestParam("article_id") int article_id,
-                                                         @RequestParam("type") boolean type,
+    public ResponseEntity<Recommendation> recommendation(@RequestParam("articleId") int articleId,
+                                                         @RequestParam("value") boolean value,
                                                          HttpSession httpSession){
-        String user_id = (String)httpSession.getAttribute("userId");
+        String userId = (String)httpSession.getAttribute("userId");
         Recommendation recommendation = new Recommendation();
-        recommendation.setArticle_id(article_id);
-        recommendation.setUser_id(user_id);
-        recommendation.setType(type);
-        Recommendation savedRecommendation = recommendationRepository.save(recommendation);
-        logger.info("Saved Recommendation : " + savedRecommendation);
-        return new ResponseEntity<Recommendation>(savedRecommendation, HttpStatus.OK);
+        recommendation.setArticleId(articleId);
+        recommendation.setUserId(userId);
+        recommendation.setValue(value);
+        Recommendation newRecommendation = null;
+        try{
+            recommendationRepository.findByArticleIdAndUserId(articleId, userId);
+            newRecommendation = recommendationRepository.update(articleId, userId, value);
+            logger.info("Updated Recommendation : " + newRecommendation);
+        }catch(Exception e){
+            newRecommendation = recommendationRepository.save(recommendation);
+            logger.info("Saved Recommendation : " + newRecommendation);
+        }
+        return new ResponseEntity<Recommendation>(newRecommendation, HttpStatus.OK);
     }
 
 }

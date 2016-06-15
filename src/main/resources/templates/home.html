@@ -27,18 +27,18 @@
         </thead>
         <tbody>
         <tr th:each="article : ${articles}">
-            <td th:text = "${article.user_id}"></td>
-            <td th:text = "${article.user_id}"></td>
+            <td th:text = "${article.userId}"></td>
+            <td th:text = "${article.userId}"></td>
             <td th:text = "${article.content}"></td>
             <td>
                 <form method="post" th:action="@{/recommendation}">
-                    <input th:type="hidden" name="article_id" th:value="${article.id}"/>
-                    <input th:type="hidden" name="type" th:value='TRUE' />
+                    <input th:type="hidden" name="articleId" th:value="${article.id}"/>
+                    <input th:type="hidden" name="value" th:value='TRUE' />
                     <input type="submit" class="btn btn-sm btn-primary"/>
                 </form>
                 <form method="post" th:action="@{/recommendation}">
-                    <input th:type="hidden" name="article_id" th:value="${article.id}"/>
-                    <input th:type="hidden" name="type" th:value='FALSE' />
+                    <input th:type="hidden" name="articleId" th:value="${article.id}"/>
+                    <input th:type="hidden" name="value" th:value='FALSE' />
                     <input type="submit" class="btn btn-sm btn-danger" />
                 </form>
             </td>
