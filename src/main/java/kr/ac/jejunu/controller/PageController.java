@@ -39,7 +39,7 @@ public class PageController {
             String id = (String) httpSession.getAttribute("userId");
             user = userRepository.findOne(id);
         }
-        List<Article> articleList = (List<Article>)articleRepository.findAll();
+        List<Article> articleList = (List<Article>)articleRepository.findAllOrderByDate();
         model.addAttribute("user", user);
         model.addAttribute("articles", articleList);
         return "home";

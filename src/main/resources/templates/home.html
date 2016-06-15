@@ -27,13 +27,13 @@
         <tbody>
         <tr th:each="article : ${articles}">
             <td>ㅁㅁㅁ</td>
-            <td th:text = ${article.user_id}></td>
-            <td th:text = ${article.user_content}></td>
+            <td th:text = "${article.user_id}"></td>
+            <td th:text = "${article.content}"></td>
             <td>
                 <a href="/login" class="btn btn-sm btn-primary">추천 [ 0 ]</a>
                 <a href="/login" class="btn btn-sm btn-danger">반대 [ 0 ]</a>
             </td>
-            <td th:text = ${article.date}></td>
+            <td th:text = "${article.date}"></td>
         </tr>
         </tbody>
     </table>
