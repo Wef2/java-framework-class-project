@@ -11,9 +11,9 @@ import javax.servlet.http.HttpServletResponse;
  * Created by Kim on 2016-06-13.
  */
 
-public class MyInterceptor extends HandlerInterceptorAdapter {
+public class PageInterceptor extends HandlerInterceptorAdapter {
 
-    private final static Logger logger = LoggerFactory.getLogger(MyInterceptor.class);
+    private final static Logger logger = LoggerFactory.getLogger(PageInterceptor.class);
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
