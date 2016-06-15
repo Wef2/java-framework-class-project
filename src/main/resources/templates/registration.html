@@ -10,7 +10,7 @@
 <h1 class="text-center">회원 가입</h1>
 <div class="container login-container">
 
-    <form class="form-signin" method="post" action="#" th:action="@{/user}" th:object="${user}">
+    <form class="form-signin" method="post" enctype="multipart/form-data" th:action="@{/user}" th:object="${user}">
         <div class="input-container">
             <label for="id">ID</label>
             <input type="text" id="id" class="form-control" placeholder="ID" th:field="*{id}"/>
@@ -29,8 +29,7 @@
         </div>
         <div class="input-container">
             <label for="input-image">프로필 이미지</label>
-            <input type="password" id="input-image" class="form-control"/>
-            <button class="btn btn-lg btn-default btn-block" type="submit">찾아보기</button>
+            <input type="file" accept="image/*" id="input-image" name="file"/>
         </div>
         <div class="button-container">
             <div class="col-md-6">

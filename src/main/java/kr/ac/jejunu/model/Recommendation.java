@@ -1,6 +1,8 @@
 package kr.ac.jejunu.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
@@ -10,6 +12,7 @@ import javax.persistence.Id;
 public class Recommendation {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private int article_id;
     private String user_id;
@@ -31,11 +34,21 @@ public class Recommendation {
         this.user_id = user_id;
     }
 
-    public boolean isType() {
+    public boolean getType() {
         return type;
     }
 
     public void setType(boolean type) {
         this.type = type;
+    }
+
+    @Override
+    public String toString() {
+        return "Recommendation{" +
+                "id=" + id +
+                ", article_id=" + article_id +
+                ", user_id='" + user_id + '\'' +
+                ", type=" + type +
+                '}';
     }
 }

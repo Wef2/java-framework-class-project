@@ -11,6 +11,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.io.File;
 import java.util.Date;
 
 @SpringBootApplication
@@ -18,14 +19,19 @@ public class SpringClassProjectApplication {
 
     private static final Logger log = LoggerFactory.getLogger(SpringClassProjectApplication.class);
 
+    public static String ROOT = "profile_images";
+
     public static void main(String[] args) {
         SpringApplication.run(SpringClassProjectApplication.class, args);
     }
 
     @Bean
-    public CommandLineRunner demo(UserRepository userRepository, ArticleRepository articleRepository) {
+    public CommandLineRunner init(UserRepository userRepository, ArticleRepository articleRepository) {
+
+        new File(ROOT).mkdir();
+
         for (int i = 1; i <= 10; i++) {
-            userRepository.save(new User("test" + i, "test123", "테스트" + i, "테스트입니다" + i));
+            userRepository.save(new User("test" + i, "test123", "테스트" + i, "테스트입니다" + i, "default_profile_image.png"));
         }
 
         for (int i = 1; i <= 50; i++) {

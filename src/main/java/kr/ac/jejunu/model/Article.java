@@ -64,11 +64,10 @@ public class Article {
     @Override
     public String toString() {
         return "Article{" +
-                "date=" + date +
-                ", content='" + content + '\'' +
+                "id=" + id +
                 ", user_id='" + user_id + '\'' +
-                ", id=" + id +
+                ", content='" + content + '\'' +
+                ", date=" + date +
                 '}';
     }
-
 }
