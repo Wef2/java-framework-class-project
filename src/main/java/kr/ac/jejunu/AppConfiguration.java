@@ -2,7 +2,6 @@ package kr.ac.jejunu;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
@@ -16,6 +15,8 @@ public class AppConfiguration extends WebMvcConfigurerAdapter {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new MyInterceptor());
+        registry.addInterceptor(new MyInterceptor())
+                .addPathPatterns("/write")
+                .addPathPatterns("/recommendation");
     }
 }

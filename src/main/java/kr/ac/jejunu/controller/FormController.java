@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 
 /**
  * Created by neo-202 on 2016-06-08.
@@ -45,12 +47,22 @@ public class FormController {
     public String saveUser(@ModelAttribute User user) {
         userRepository.save(user);
         logger.info(userRepository.findAll().toString());
-        return "/";
+        return "redirect:/";
     }
 
-    @RequestMapping(value = "/article", method = RequestMethod.POST)
-    public String saveArticle(@ModelAttribute Article article) {
-        articleRepository.save(article);
-        return "/";
+    @RequestMapping(value = "/modification", method = RequestMethod.POST)
+    public String modifyUser(@ModelAttribute User user) {
+        userRepository.save(user);
+        return "redirect:/";
     }
+
+
+    @RequestMapping(value = "/article", method = RequestMethod.POST)
+    public String saveArticle(@ModelAttribute Article article, HttpSession httpSession) {
+        article.setUser_id((String)httpSession.getAttribute("userId"));
+        article.setDate(new Date());
+        articleRepository.save(article);
+        return "redirect:/";
+    }
+
 }

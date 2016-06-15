@@ -17,15 +17,12 @@ public class MyInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        logger.info(request.getRequestURI());
-        try{
-            logger.info("USER ID : " + request.getSession().getAttribute("userId").toString());
-        }
-        catch (Exception e){
+        logger.info("Request URI : " + request.getRequestURI());
+        logger.info("Referer : " + request.getHeader("referer"));
 
-        }
-        if (request.getRequestURI() == "/") {
-
+        if (request.getSession().getAttribute("userId") == null) {
+            response.sendRedirect("/login");
+            return false;
         }
         return true;
     }

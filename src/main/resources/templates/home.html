@@ -8,11 +8,12 @@
 <body>
 <h1 class="text-center">게시판</h1>
 <div class="container">
-    <p th:if="${userId}" th:text="${user.name}"></p>
+    <strong><p th:if="${userId}" th:text="${user.name}"></p></strong>
+    <p th:if="${userId}" th:text="${user.description}"></p>
     <div class="btn-group">
         <a th:if="${userId}" href="/modification" class="btn btn-lg btn-default">프로필 수정</a>
         <a th:unless="${userId}" href="/registration" class="btn btn-lg btn-default">회원 가입</a>
-        <a href="/login" class="btn btn-lg btn-default">글쓰기</a>
+        <a href="/write" class="btn btn-lg btn-default">글쓰기</a>
     </div>
     <table class="table table-hover">
         <thead>

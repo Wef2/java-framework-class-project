@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" type="text/css" href="webjars/bootstrap/3.3.6/css/bootstrap.min.css"/>
+    <link th:href="@{css/style.css}" rel="stylesheet"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>글쓰기</title>
+</head>
+<body>
+
+<h1 class="text-center">글쓰기</h1>
+<div class="container">
+
+    <form method="post" action="#" th:action="@{/article}" th:object="${article}">
+
+        <div class="form-group">
+            <textarea class="form-control" rows="10" th:field="*{content}"></textarea>
+        </div>
+
+        <div class="button-container">
+            <div class="col-md-6">
+                <button class="btn btn-lg btn-primary btn-block" type="submit">저장</button>
+            </div>
+            <div class="col-md-6">
+                <button class="btn btn-lg btn-danger btn-block" type="submit">취소</button>
+            </div>
+        </div>
+    </form>
+
+</div>
+</body>
+</html>

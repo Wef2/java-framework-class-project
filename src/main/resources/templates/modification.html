@@ -10,7 +10,7 @@
 <h1 class="text-center">프로필 수정</h1>
 <div class="container login-container">
 
-  <form method="post" action="#" th:action="@{/user}" th:object="${user}">
+  <form method="post" action="#" th:action="@{/modification}" th:object="${user}">
     <div class="input-container">
       <label for="input-id">ID</label>
       <input type="text" id="input-id" class="form-control" placeholder="ID" readonly="true" th:field="*{id}"/>

@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
@@ -39,7 +38,7 @@ public class PageController {
             String id = (String) httpSession.getAttribute("userId");
             user = userRepository.findOne(id);
         }
-        List<Article> articleList = (List<Article>)articleRepository.findAllOrderByDate();
+        List<Article> articleList = (List<Article>) articleRepository.findAllOrderByDate();
         model.addAttribute("user", user);
         model.addAttribute("articles", articleList);
         return "home";
@@ -65,9 +64,10 @@ public class PageController {
         return "registration";
     }
 
-    @ModelAttribute("user")
-    public User user() {
-        return new User();
+    @RequestMapping("/write")
+    public String write(Model model) {
+        model.addAttribute("article", new Article());
+        return "write";
     }
 
 }

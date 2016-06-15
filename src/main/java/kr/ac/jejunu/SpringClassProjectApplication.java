@@ -28,8 +28,8 @@ public class SpringClassProjectApplication {
             userRepository.save(new User("test" + i, "test123", "테스트" + i, "테스트입니다" + i));
         }
 
-        for (int i = 1; i <= 20; i++) {
-            articleRepository.save(new Article("test1", "test" + i, new Date()));
+        for (int i = 1; i <= 50; i++) {
+            articleRepository.save(new Article("test1", String.valueOf(Math.random()), new Date()));
         }
 
         return (args) -> {
