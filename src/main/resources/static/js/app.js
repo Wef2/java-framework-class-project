@@ -12,4 +12,5 @@ $(document).ready(function(){
     $("#input-image").change(function () {
         readURL(this);
     });
+
 });

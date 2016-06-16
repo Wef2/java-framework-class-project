@@ -12,6 +12,4 @@ import java.util.List;
  */
 public interface ArticleRepository extends PagingAndSortingRepository<Article, Integer> {
 
-    @Query(value = "SELECT * FROM Article a ORDER BY a.date DESC", nativeQuery = true)
-    List<Article> findAllOrderByDate();
 }

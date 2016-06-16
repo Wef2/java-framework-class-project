@@ -6,6 +6,12 @@ import kr.ac.jejunu.repository.ArticleRepository;
 import kr.ac.jejunu.repository.RecommendationRepository;
 import kr.ac.jejunu.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,20 +32,15 @@ public class RestApiController {
     @Autowired
     RecommendationRepository recommendationRepository;
 
-    @RequestMapping(value = "/user/{id}")
-    User user(@PathVariable String id) {
-        return userRepository.findOne(id);
-    }
-
-    @RequestMapping(value = "/users")
-    Iterable<User> userList() {
-        return userRepository.findAll();
-    }
-
     @RequestMapping(value = "/articles")
     Iterable<Article> articleList() {
-        return articleRepository.findAllOrderByDate();
+        return articleRepository.findAll(new Sort(Sort.Direction.DESC, "date"));
     }
 
+    @RequestMapping(value = "/articles/page/{page}")
+    ResponseEntity<?> articlePage(@PathVariable int page) {
+        Page<Article> articles = articleRepository.findAll(new PageRequest(page, 10, Sort.Direction.DESC, "date"));
+        return new ResponseEntity<>(articles, HttpStatus.OK);
+    }
 
 }

@@ -9,6 +9,7 @@ import kr.ac.jejunu.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -47,7 +48,7 @@ public class PageController {
             String id = (String) httpSession.getAttribute("userId");
             user = userRepository.findOne(id);
         }
-        List<Article> articleList = (List<Article>) articleRepository.findAllOrderByDate();
+        List<Article> articleList = (List<Article>) articleRepository.findAll(new Sort(Sort.Direction.DESC, "date"));
         model.addAttribute("user", user);
         model.addAttribute("articles", articleList);
         return "home";

@@ -10,8 +10,6 @@ import kr.ac.jejunu.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +21,6 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Date;
-import java.util.Enumeration;
 
 /**
  * Created by neo-202 on 2016-06-08.
@@ -57,7 +54,7 @@ public class FormController {
     @RequestMapping(value = "/user", method = RequestMethod.POST)
     public String saveUser(@RequestParam("file") MultipartFile file, @ModelAttribute User user) {
         String imageFolderPath = SpringClassProjectApplication.ROOT;
-        String fileName = System.currentTimeMillis() + "_"+ file.getOriginalFilename();
+        String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
         if (!file.isEmpty()) {
             try {
                 BufferedOutputStream stream = new BufferedOutputStream(
@@ -65,8 +62,7 @@ public class FormController {
                 FileCopyUtils.copy(file.getInputStream(), stream);
                 stream.close();
                 logger.info("Successfully Uploaded : " + fileName);
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 logger.error("Failed to upload" + fileName);
                 logger.error(e.toString());
             }
@@ -100,7 +96,7 @@ public class FormController {
 
     @RequestMapping(value = "/article", method = RequestMethod.POST)
     public String saveArticle(@ModelAttribute Article article, HttpSession httpSession) {
-        article.setUserId((String)httpSession.getAttribute("userId"));
+        article.setUserId((String) httpSession.getAttribute("userId"));
         article.setDate(new Date());
         articleRepository.save(article);
         return "redirect:/";
@@ -113,24 +109,20 @@ public class FormController {
     }
 
     @RequestMapping(value = "/recommendation", method = RequestMethod.POST)
-    public ResponseEntity<Recommendation> recommendation(@RequestParam("articleId") int articleId,
-                                                         @RequestParam("value") boolean value,
-                                                         HttpSession httpSession){
-        String userId = (String)httpSession.getAttribute("userId");
+    public String recommendation(@RequestParam("articleId") int articleId,
+                                 @RequestParam("value") boolean value,
+                                 HttpSession httpSession) {
+        String userId = (String) httpSession.getAttribute("userId");
         Recommendation recommendation = new Recommendation();
         recommendation.setArticleId(articleId);
         recommendation.setUserId(userId);
         recommendation.setValue(value);
-        Recommendation newRecommendation = null;
-        try{
-            recommendationRepository.findByArticleIdAndUserId(articleId, userId);
-            newRecommendation = recommendationRepository.update(articleId, userId, value);
-            logger.info("Updated Recommendation : " + newRecommendation);
-        }catch(Exception e){
-            newRecommendation = recommendationRepository.save(recommendation);
-            logger.info("Saved Recommendation : " + newRecommendation);
+        if (recommendationRepository.findByArticleIdAndUserId(articleId, userId) != null) {
+            recommendationRepository.update(value, articleId, userId);
+        } else {
+            recommendationRepository.save(recommendation);
         }
-        return new ResponseEntity<Recommendation>(newRecommendation, HttpStatus.OK);
+        return "redirect:/";
     }
 
 }
