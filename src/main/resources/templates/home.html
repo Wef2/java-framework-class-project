@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <link rel="stylesheet" type="text/css" href="webjars/bootstrap/3.3.6/css/bootstrap.min.css"/>
+    <link th:href="@{css/home_style.css}" rel="stylesheet"/>
     <script src="webjars/jquery/3.0.0/jquery.min.js"/>
     <script th:src="@{js/home_app.js}"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -21,47 +22,19 @@
         <thead>
         <tr class="row">
             <th class="col-lg-2"></th>
-            <th class="col-lg-2">이름</th>
+            <th class="col-lg-2">아이디</th>
             <th class="col-lg-3">글</th>
             <th class="col-lg-3">추천</th>
             <th class="col-lg-2">시간</th>
         </tr>
         </thead>
         <tbody class="body-articles">
-        <!--<tr class="row" th:each="article : ${articles}">-->
-            <!--<td class="col-lg-2 article-profile">-->
-                <!--<img th:src="@{'/user/' + ${article.userId} + '/profile'}"/>-->
-            <!--</td>-->
-            <!--<td class="col-lg-2 article-user-id" th:text="${article.userId}"></td>-->
-            <!--<td class="col-lg-3 article-content" th:text="${article.content}"></td>-->
-            <!--<td class="col-lg-3 article-recommendation">-->
-                <!--<div class="row">-->
-                    <!--<div class="col-lg-4">-->
-                        <!--<form method="post" th:action="@{/recommendation}">-->
-                            <!--<input th:type="hidden" name="articleId" th:value="${article.id}"/>-->
-                            <!--<input th:type="hidden" name="value" th:value='TRUE'/>-->
-                            <!--<input type="submit" class="btn btn-primary" value="추천 [0]"/>-->
-                        <!--</form>-->
-                    <!--</div>-->
-                    <!--<div class="col-lg-4">-->
-                        <!--<form method="post" th:action="@{/recommendation}">-->
-                            <!--<input th:type="hidden" name="articleId" th:value="${article.id}"/>-->
-                            <!--<input th:type="hidden" name="value" th:value='FALSE'/>-->
-                            <!--<input type="submit" class="btn btn-danger" value="반대 [0]"/>-->
-                        <!--</form>-->
-                    <!--</div>-->
-                    <!--<div class="col-lg-4">-->
-                        <!--<form th:method="delete" th:action="@{/article}" th:if="${userId}==${article.userId}">-->
-                            <!--<input th:type="hidden" name="id" th:value="${article.id}"/>-->
-                            <!--<input type="submit" class="btn btn-info" value="삭제"/>-->
-                        <!--</form>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</td>-->
-            <!--<td class="col-lg-2 article-date" th:text="${article.date}"></td>-->
-        <!--</tr>-->
         </tbody>
     </table>
+    <div class="paging-div text-center">
+        <div class="btn-group text-center paging-btn-group">
+        </div>
+    </div>
 </div>
 </body>
 </html>
