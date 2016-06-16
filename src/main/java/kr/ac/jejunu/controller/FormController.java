@@ -17,11 +17,13 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Date;
+import java.util.Enumeration;
 
 /**
  * Created by neo-202 on 2016-06-08.
@@ -42,7 +44,7 @@ public class FormController {
     RecommendationRepository recommendationRepository;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String getUser(@ModelAttribute User user, HttpSession httpSession) {
+    public String getUser(@ModelAttribute User user, HttpServletRequest request, HttpSession httpSession) {
         try {
             User newUser = userRepository.findByIdAndPassword(user.getId(), user.getPassword());
             httpSession.setAttribute("userId", newUser.getId());
@@ -74,11 +76,27 @@ public class FormController {
         return "redirect:/";
     }
 
-    @RequestMapping(value = "/modification", method = RequestMethod.POST)
-    public String modifyUser(@ModelAttribute User user) {
-        userRepository.save(user);
-        return "redirect:/";
-    }
+//    @RequestMapping(value = "/modification", method = RequestMethod.POST)
+//    public String modifyUser(@RequestParam("file") MultipartFile file, @ModelAttribute User user) {
+//        String imageFolderPath = SpringClassProjectApplication.ROOT;
+//        String fileName = System.currentTimeMillis() + "_"+ file.getOriginalFilename();
+//        if (!file.isEmpty()) {
+//            try {
+//                BufferedOutputStream stream = new BufferedOutputStream(
+//                        new FileOutputStream(new File(imageFolderPath + "/" + fileName)));
+//                FileCopyUtils.copy(file.getInputStream(), stream);
+//                stream.close();
+//                logger.info("Successfully Uploaded : " + fileName);
+//            }
+//            catch (Exception e) {
+//                logger.error("Failed to upload" + fileName);
+//                logger.error(e.toString());
+//            }
+//        }
+//        user.setImageFileName(fileName);
+//        userRepository.save(user);
+//        return "redirect:/";
+//    }
 
     @RequestMapping(value = "/article", method = RequestMethod.POST)
     public String saveArticle(@ModelAttribute Article article, HttpSession httpSession) {

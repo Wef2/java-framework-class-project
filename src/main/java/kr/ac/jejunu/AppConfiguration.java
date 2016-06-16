@@ -18,6 +18,7 @@ public class AppConfiguration extends WebMvcConfigurerAdapter {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new PageInterceptor())
                 .addPathPatterns("/write")
+                .addPathPatterns("/modification")
                 .addPathPatterns("/recommendation");
     }
 
