@@ -1,5 +1,7 @@
 package kr.ac.jejunu.controller;
 
+import kr.ac.jejunu.MyUtil;
+import kr.ac.jejunu.SpringClassProjectApplication;
 import kr.ac.jejunu.model.Article;
 import kr.ac.jejunu.model.User;
 import kr.ac.jejunu.repository.ArticleRepository;
@@ -7,12 +9,19 @@ import kr.ac.jejunu.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -68,6 +77,21 @@ public class PageController {
     public String write(Model model) {
         model.addAttribute("article", new Article());
         return "write";
+    }
+
+    @RequestMapping(value = "/user/{id}/profile")
+    public ResponseEntity<?> get(@PathVariable("id") String id) {
+        String imagePath = userRepository.findOne(id).getImageFileName();
+        File image = new File(SpringClassProjectApplication.ROOT + "/" + imagePath);
+        byte[] bytes = new byte[0];
+        try {
+            bytes = MyUtil.getBytesFromFile(image);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.IMAGE_PNG);
+        return new ResponseEntity<>(bytes, headers, HttpStatus.CREATED);
     }
 
 }

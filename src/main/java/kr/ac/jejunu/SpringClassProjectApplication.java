@@ -12,7 +12,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 @SpringBootApplication
 public class SpringClassProjectApplication {
@@ -20,6 +24,11 @@ public class SpringClassProjectApplication {
     private static final Logger log = LoggerFactory.getLogger(SpringClassProjectApplication.class);
 
     public static String ROOT = "profile_images";
+
+    public static Random random = new Random();
+    public static int numberOfRandomImages = 4;
+    public static int numberOfRandomUsers = 10;
+    public static int numberOfRandomArticles = 50;
 
     public static void main(String[] args) {
         SpringApplication.run(SpringClassProjectApplication.class, args);
@@ -30,12 +39,12 @@ public class SpringClassProjectApplication {
 
         new File(ROOT).mkdir();
 
-        for (int i = 1; i <= 10; i++) {
-            userRepository.save(new User("test" + i, "test123", "테스트" + i, "테스트입니다" + i, "default_profile_image.png"));
+        for (int i = 1; i <= numberOfRandomUsers; i++) {
+            userRepository.save(new User("test" + i, "test123", "테스트" + i, "테스트입니다" + i, "default_profile_image" + (random.nextInt(numberOfRandomImages) + 1) + ".png"));
         }
 
-        for (int i = 1; i <= 50; i++) {
-            articleRepository.save(new Article("test1", String.valueOf(Math.random()), new Date()));
+        for (int i = 1; i <= numberOfRandomArticles; i++) {
+            articleRepository.save(new Article("test" + (random.nextInt(numberOfRandomUsers) + 1), MyUtil.randomStrGenerate(20), new Date()));
         }
 
         return (args) -> {
@@ -49,6 +58,13 @@ public class SpringClassProjectApplication {
             for (Article article : articleRepository.findAll()) {
                 log.info(article.toString());
             }
+            log.info("files in root folder");
+            log.info("-------------------------------");
+            File rootFolder = new File(SpringClassProjectApplication.ROOT);
+            List<String> fileNames = Arrays.stream(rootFolder.listFiles())
+                    .map(f -> f.getName())
+                    .collect(Collectors.toList());
+            fileNames.forEach(s -> log.info(s));
         };
     }
 }

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Created by neo-202 on 2016-06-08.
-        */
+ */
 @RequestMapping("/rest")
 @RestController
 public class RestApiController {
@@ -27,7 +27,7 @@ public class RestApiController {
     RecommendationRepository recommendationRepository;
 
     @RequestMapping(value = "/user/{id}")
-    User user(@PathVariable String id){
+    User user(@PathVariable String id) {
         return userRepository.findOne(id);
     }
 
@@ -37,8 +37,9 @@ public class RestApiController {
     }
 
     @RequestMapping(value = "/articles")
-    Iterable<Article> articleList(){
+    Iterable<Article> articleList() {
         return articleRepository.findAllOrderByDate();
     }
+
 
 }

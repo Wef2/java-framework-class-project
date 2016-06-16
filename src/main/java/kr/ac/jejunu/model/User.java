@@ -13,12 +13,12 @@ public class User {
 
     }
 
-    public User(String id, String password, String name, String description, String imagePath) {
+    public User(String id, String password, String name, String description, String imageFileName) {
         this.id = id;
         this.password = password;
         this.name = name;
         this.description = description;
-        this.imagePath = imagePath;
+        this.imageFileName = imageFileName;
     }
 
     @Id
@@ -26,7 +26,7 @@ public class User {
     private String password;
     private String name;
     private String description;
-    private String imagePath;
+    private String imageFileName;
 
     public String getId() {
         return id;
@@ -60,22 +60,22 @@ public class User {
         this.description = description;
     }
 
-    public String getImagePath() {
-        return imagePath;
+    public String getImageFileName() {
+        return imageFileName;
     }
 
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
+    public void setImageFileName(String imageFileName) {
+        this.imageFileName = imageFileName;
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "id='" + id + '\'' +
-                ", password='" + password + '\'' +
-                ", name='" + name + '\'' +
+                "imageFileName='" + imageFileName + '\'' +
                 ", description='" + description + '\'' +
-                ", imagePath='" + imagePath + '\'' +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", id='" + id + '\'' +
                 '}';
     }
 }

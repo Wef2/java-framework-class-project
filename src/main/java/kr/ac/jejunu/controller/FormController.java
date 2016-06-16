@@ -69,7 +69,7 @@ public class FormController {
                 logger.error(e.toString());
             }
         }
-        user.setImagePath(fileName);
+        user.setImageFileName(fileName);
         userRepository.save(user);
         return "redirect:/";
     }
@@ -85,6 +85,12 @@ public class FormController {
         article.setUserId((String)httpSession.getAttribute("userId"));
         article.setDate(new Date());
         articleRepository.save(article);
+        return "redirect:/";
+    }
+
+    @RequestMapping(value = "/article", method = RequestMethod.DELETE)
+    public String deleteArticle(@RequestParam("id") int id) {
+        articleRepository.delete(id);
         return "redirect:/";
     }
 
