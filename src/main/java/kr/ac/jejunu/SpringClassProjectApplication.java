@@ -28,7 +28,7 @@ public class SpringClassProjectApplication {
     public static Random random = new Random();
     public static int numberOfRandomImages = 4;
     public static int numberOfRandomUsers = 10;
-    public static int numberOfRandomArticles = 50;
+    public static int numberOfRandomArticles = 100;
 
     public static void main(String[] args) {
         SpringApplication.run(SpringClassProjectApplication.class, args);

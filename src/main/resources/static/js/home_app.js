@@ -1,22 +1,15 @@
 $(document).ready(function () {
 
+    var currentPage;
+
     getPage(0);
 
-    var totalPages;
-    var isFirst;
-    var isLast;
-
-    function getPage(pageNumber){
+    function getPage(pageNumber) {
         $.ajax({
             url: "/rest/articles/page/" + pageNumber
         }).then(function (data) {
-            totalPages = data.totalPages;
-            isFirst = data.first;
-            isLast = data.last;
-
-            console.log(totalPages);
-            console.log(isFirst);
-            console.log(isLast);
+            currentPage = pageNumber;
+            $('.body-articles').html("");
             $.each(data.content, function (i, item) {
                 $('.body-articles').append(
                     "<tr class='row'>" +
@@ -39,16 +32,35 @@ $(document).ready(function () {
                 );
             });
 
-            var i = 0;
-            while(i < totalPages){
-                $('.paging-btn-group').append(
-                    "<button class='btn btn-default'>" + i + "</button>"
-                );
-                i = i + 1;
+            $('.pagination').html("");
+            var start = currentPage - 2;
+            if (currentPage <= 2) {
+                start = 0;
             }
-            console.log(item);
+            var end = start + 4;
+            if (data.totalPages - 1 < end) {
+                end = data.totalPages - 1;
+                start = end - 4;
+                if(start < 1){
+                    start = 1;
+                }
+            }
+            for (i = start; i <= end; i++) {
+                if (i == currentPage) {
+                    $('.pagination').append(
+                        "<li class='active'><a class='page-a'>" + (i + 1) + "</a></li>"
+                    );
+                }
+                else {
+                    $('.pagination').append(
+                        "<li><a class='page-a'>" + (i + 1) + "</a></li>"
+                    );
+                }
+            }
+            $('.page-a').click(function () {
+                getPage($(this).html() - 1);
+            });
         });
     }
-
 
 });
