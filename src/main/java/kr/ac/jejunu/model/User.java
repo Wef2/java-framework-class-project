@@ -1,5 +1,7 @@
 package kr.ac.jejunu.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -23,6 +25,7 @@ public class User {
 
     @Id
     private String id;
+    @JsonIgnore
     private String password;
     private String name;
     private String description;

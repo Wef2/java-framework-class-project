@@ -32,6 +32,12 @@ public class RestApiController {
     @Autowired
     RecommendationRepository recommendationRepository;
 
+    @RequestMapping(value = "/user/{id}")
+    ResponseEntity<?> user(@PathVariable String id) {
+        User user = userRepository.findOne(id);
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/articles")
     Iterable<Article> articleList() {
         return articleRepository.findAll(new Sort(Sort.Direction.DESC, "date"));

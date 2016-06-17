@@ -11,8 +11,10 @@
 <body>
 <h1 class="text-center">댓글 시스템</h1>
 <div class="container">
-    <strong><p th:if="${userId}" th:text="${user.name}"></p></strong>
-    <p th:if="${userId}" th:text="${user.description}"></p>
+    <p id="userId" th:text="${userId}"></p>
+    <div class="user-data-div">
+    </div>
+
     <div class="btn-group">
         <a th:if="${userId}" href="/modification" class="btn btn-lg btn-default">프로필 수정</a>
         <a th:unless="${userId}" href="/registration" class="btn btn-lg btn-default">회원 가입</a>
@@ -31,7 +33,7 @@
         <tbody class="body-articles">
         </tbody>
     </table>
-    <div class="paging-div text-center">
+    <div class="pagination-div text-center">
         <ul class="pagination"></ul>
     </div>
 </div>

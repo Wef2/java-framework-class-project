@@ -58,7 +58,7 @@ public class SpringClassProjectApplication {
             for (Article article : articleRepository.findAll()) {
                 log.info(article.toString());
             }
-            log.info("files in root folder");
+            log.info("Image files in folder");
             log.info("-------------------------------");
             File rootFolder = new File(SpringClassProjectApplication.ROOT);
             List<String> fileNames = Arrays.stream(rootFolder.listFiles())
